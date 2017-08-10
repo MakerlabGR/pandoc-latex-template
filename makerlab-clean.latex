@@ -122,20 +122,30 @@ $endif$
   $if(headertext)$
     $if(headergraphics)$
       \renewcommand{\headrulewidth}{0pt}%
+      \fancyhead[R]{%
+        \rule[15mm]{0pt}{5mm}%
+        \color{headercolor} \small \sffamily%
+        \textsc{Πρότυπο Κέντρο Ρομποτικής \& Τεχνολογίας} \textbullet{}%
+        \textsc{$address$} \textbullet{}%
+        \textsc{$city$} \textbullet{}%
+        \textsc{$telephone$} \\%
+        \vspace{1.2ex}%
+        \hypersetup{urlcolor=headercolor}%
+        \href{https://www.makerlab.gr}{\textsc{www.makerlab.gr}}%
+      }
     $else$
       \renewcommand{\headrulewidth}{2pt}%
+      \fancyhead[C]{%
+        \rule[15mm]{0pt}{5mm}%
+        \color{headercolor} \small \sffamily%
+        \textsc{Πρότυπο Κέντρο Ρομποτικής \& Τεχνολογίας} \textbullet{}%
+        \textsc{$address$} \textbullet{}%
+        \textsc{$city$} \textbullet{}%
+        \textsc{$telephone$} \textbullet{}%
+        \hypersetup{urlcolor=headercolor}%
+        \href{https://www.makerlab.gr}{\textsc{www.makerlab.gr}}%
+      }
     $endif$
-    \fancyhead[R]{%
-      \rule[15mm]{0pt}{5mm}%
-      \color{headercolor} \small \sffamily%
-      \textsc{Πρότυπο Κέντρο Ρομποτικής \& Τεχνολογίας} \textbullet{}%
-      \textsc{$address$} \textbullet{}%
-      \textsc{$city$} \textbullet{}%
-      \textsc{$telephone$} \\%
-      \vspace{1.2ex}%
-      \hypersetup{urlcolor=headercolor}%
-      \href{https://www.makerlab.gr}{\textsc{www.makerlab.gr}}%
-    }
   $endif$
 
   $if(pagenumbering)$
@@ -289,33 +299,31 @@ $endif$
 \begin{document}
 
 
-%----------------------------------LETTERHEAD----------------------------------%
+%--------------------------------RECIPIENT & DATE------------------------------%
 
 
-$if(letterhead)$
-  \rmfamily \normalsize
-  $if(showdate)$
-    $if(showrecipient)$
-      % \begin{FlushLeft}
-        $for(to)$
-        $to$\\
-        $endfor$
-      % \end{FlushLeft}
-    $endif$
-    \begin{FlushRight}
+\rmfamily \normalsize
+$if(showdate)$
+  $if(showrecipient)$
+    % \begin{FlushLeft}
+      $for(to)$
+      $to$\\
+      $endfor$
+    % \end{FlushLeft}
+  $endif$
+  \begin{FlushRight}
 
-        \vspace{0.45em}
+      \vspace{0.5ex}
 
-        $city$, \today
-    \end{FlushRight}
-  $else$
-    $if(showrecipient)$
-      \begin{FlushRight}
-        $for(to)$
-        $to$\\
-        $endfor$
-      \end{FlushRight}
-    $endif$
+      $city$, \today
+  \end{FlushRight}
+$else$
+  $if(showrecipient)$
+    \begin{FlushLeft}
+      $for(to)$
+      $to$\\
+      $endfor$
+    \end{FlushLeft}
   $endif$
 $endif$
 
@@ -324,21 +332,18 @@ $endif$
 
 
 $if(subject)$
-  $if(letterhead)$
+  $if(showdate)$
     \begin{FlushLeft}
       \rmfamily \Large \textsc{$subject$}
     \end{FlushLeft}
   $else$
-    $if(background)$
-      \begin{FlushRight}
-        \rmfamily \LARGE \textsc{$subject$}
-      \end{FlushRight}
-    $else$
-      \begin{FlushLeft}
-        \rmfamily \LARGE \textsc{$subject$}
-      \end{FlushLeft}
-    $endif$
+    \begin{FlushRight}
+      \rmfamily \LARGE \textsc{$subject$}
+    \end{FlushRight}
   $endif$
+  \vspace{2ex}
+$else$
+  \vspace{3ex}
 $endif$
 
 
@@ -346,20 +351,17 @@ $endif$
 
 
 \rmfamily \normalsize
-$if(letterhead)$
-  $if(showdate)$
-    \begin{FlushLeft}
-      $body$
-    \end{FlushLeft}
-  $else$
-    \begin{justify}
-      \setlength{\parindent}{0cm}
-      $body$
-    \end{justify}
-  $endif$
+$if(letterstyle)$
+  \begin{FlushLeft}
+    $body$
+  \end{FlushLeft}
 $else$
   \begin{justify}
-    \setlength{\parindent}{0cm}
+    $if(indent)$
+      \setlength{\parindent}{2em}
+    $else$
+      \setlength{\parindent}{0em}
+    $endif$
     $body$
   \end{justify}
 $endif$
