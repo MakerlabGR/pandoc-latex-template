@@ -183,7 +183,7 @@ $if(verbatim-in-note)$
   \usepackage{fancyvrb}
 $endif$
 
-\usepackage[unicode=true]{hyperref}
+\usepackage[unicode,colorlinks,breaklinks]{hyperref}
 
 $if(colorlinks)$
   \PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
@@ -191,45 +191,43 @@ $endif$
 
 \hypersetup{
   $if(title-meta)$
-              pdftitle={$title-meta$},
+    pdftitle={$title-meta$},
   $endif$
   $if(author-meta)$
-              pdfauthor={$author-meta$},
+    pdfauthor={$author-meta$},
   $endif$
   $if(subject)$
-              pdfsubject={$subject$},
+    pdfsubject={$subject$},
   $endif$
   $if(keywords)$
-              pdfkeywords={$for(keywords)$%
-                             $keywords$$sep$,%
-                           $endfor$},
+    pdfkeywords={$for(keywords)$%
+                   $keywords$$sep$,%
+                 $endfor$},
   $endif$
   $if(tags)$
-              pdfkeywords={$for(tags)$%
-                             $tags$$sep$,%
-                           $endfor$},
+    pdfkeywords={$for(tags)$%
+                   $tags$$sep$,%
+                 $endfor$},
   $endif$
   $if(colorlinks)$
-              colorlinks=true,
-              linkcolor=$if(linkcolor)$%
-                          $linkcolor$%
-                        $else$%
-                          Maroon%
-                        $endif$,
-              citecolor=$if(citecolor)$%
-                          $citecolor$%
-                        $else$%
-                          Blue%
-                        $endif$,
-              urlcolor=$if(urlcolor)$%
-                         $urlcolor$%
-                       $else$%
-                         Blue%
-                       $endif$,
+    linkcolor=$if(linkcolor)$%
+                $linkcolor$%
+              $else$%
+                Maroon%
+              $endif$,
+    citecolor=$if(citecolor)$%
+                $citecolor$%
+              $else$%
+                Blue%
+              $endif$,
+    urlcolor=$if(urlcolor)$%
+               $urlcolor$%
+             $else$%
+               Blue%
+             $endif$,
   $else$
-              pdfborder={0 0 0},
+    pdfborder={0 0 0},
   $endif$
-              breaklinks=true
 }
 
 \urlstyle{same}  % don't use monospace font for urls
@@ -337,16 +335,17 @@ $if(lang)$
     \usepackage[shorthands=off,$for(babel-otherlangs)$%
                                  $babel-otherlangs$,%
                                $endfor$main=$babel-lang$]{babel}
-  $if(babel-newcommands)$
-    $babel-newcommands$
-  $endif$
+    $if(babel-newcommands)$
+      $babel-newcommands$
+    $endif$
   \else
-    % load polyglossia as late as possible as it *could* call bidi if RTL lang (e.g. Hebrew or Arabic)
+    % load polyglossia as late as possible as it *could* call bidi if RTL lang
+    % (e.g. Hebrew or Arabic)
     \usepackage{polyglossia}
     \setmainlanguage[$polyglossia-lang.options$]{$polyglossia-lang.name$}
-  $for(polyglossia-otherlangs)$
-    \setotherlanguage[$polyglossia-otherlangs.options$]{$polyglossia-otherlangs.name$}
-  $endfor$
+    $for(polyglossia-otherlangs)$
+      \setotherlanguage[$polyglossia-otherlangs.options$]{$polyglossia-otherlangs.name$}
+    $endfor$
   \fi
 $endif$
 
@@ -424,7 +423,8 @@ $else$
       $babel-newcommands$
     $endif$
   \else
-    % load polyglossia as late as possible as it *could* call bidi if RTL lang (e.g. Hebrew or Arabic)
+    % load polyglossia as late as possible as it *could* call bidi if RTL lang
+    % (e.g. Hebrew or Arabic)
     \usepackage{polyglossia}
     \setmainlanguage[]{english}
     $for(polyglossia-otherlangs)$
@@ -481,7 +481,8 @@ $endif$
 
 %
 % When using babel or polyglossia with biblatex, loading csquotes is recommended
-% to ensure that quoted texts are typeset according to the rules of your main language.
+% to ensure that quoted texts are typeset according to the rules of your main
+% language.
 %
 \usepackage{csquotes}
 
