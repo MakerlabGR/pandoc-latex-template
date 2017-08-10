@@ -68,7 +68,7 @@ $if(geometry)$
   \usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
 $else$
   \usepackage{geometry}
-  $if(background)$
+  $if(headergraphics)$
     \geometry{a4paper, left=20mm, right=20mm, bottom=25mm, top=32mm, headsep=34mm}
   $else$
     \geometry{a4paper, left=20mm, right=20mm, bottom=45mm, top=25mm, headsep=25mm}
@@ -124,6 +124,10 @@ $endif$
 %------------------------------------FONTS-------------------------------------%
 
 
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+
 $if(fontfamily)$
   \usepackage[$for(fontfamilyoptions)$%
                 $fontfamilyoptions$$sep$,%
@@ -137,9 +141,8 @@ $if(linestretch)$
   \setstretch{$linestretch$}
 $endif$
 
-\usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
+% Custom ampersand
+\newcommand{\amper}{{\fontspec[Scale=.95]{$mainfont$}\selectfont\itshape\&}}
 
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
 
@@ -259,8 +262,8 @@ $endif$
 %------------------------------HEADERS & FOOTERS-------------------------------%
 
 
-% Background graphics
-$if(background)$
+% Header graphics
+$if(headergraphics)$
   \usepackage{wallpaper}
   \CenterWallPaper{1}{background.pdf}
 $endif$
@@ -278,19 +281,22 @@ $endif$
   \renewcommand{\headrulewidth}{0pt}%
   \renewcommand{\headrule}{{\color{\headrulecolour}\oldheadrule}}%
 
-  $if(showauthor)$
-    $if(background)$
+  $if(headertext)$
+    $if(headergraphics)$
       \renewcommand{\headrulewidth}{0pt}%
     $else$
       \renewcommand{\headrulewidth}{2pt}%
     $endif$
     \fancyhead[R]{%
-      \rule[15mm]{0pt}{5mm}
-      \color{headercolor} \small \sffamily
-      \textsc{$author$}%
-      $for(from)$%
-        \textbullet{} \textsc{$from$}%
-      $endfor$%
+      \rule[15mm]{0pt}{5mm}%
+      \color{headercolor} \small \sffamily%
+      \textsc{Πρότυπο Κέντρο Ρομποτικής \& Τεχνολογίας} \textbullet{}%
+      \textsc{$address$} \textbullet{}%
+      \textsc{$city$} \textbullet{}%
+      \textsc{$telephone$} \\%
+      \vspace{1.2ex}%
+      \hypersetup{urlcolor=headercolor}%
+      \href{https://www.makerlab.gr}{\textsc{www.makerlab.gr}}%
     }
   $endif$
 
@@ -875,7 +881,7 @@ $if(subject)$
       \rmfamily \Large \textsc{$subject$}
     \end{FlushLeft}
   $else$
-    $if(background)$
+    $if(headergraphics)$
       \begin{FlushRight}
         \rmfamily \LARGE \textsc{$subject$}
       \end{FlushRight}
@@ -885,6 +891,7 @@ $if(subject)$
       \end{FlushLeft}
     $endif$
   $endif$
+  \vspace{3ex}
 $endif$
 
 
