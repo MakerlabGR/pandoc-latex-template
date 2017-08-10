@@ -125,25 +125,25 @@ $endif$
       \fancyhead[R]{%
         \rule[15mm]{0pt}{5mm}%
         \color{headercolor} \small \sffamily%
-        \textsc{Πρότυπο Κέντρο Ρομποτικής \& Τεχνολογίας} \textbullet{}%
+        \textsc{$institution$} \textbullet{}%
         \textsc{$address$} \textbullet{}%
         \textsc{$city$} \textbullet{}%
         \textsc{$telephone$} \\%
         \vspace{1.2ex}%
         \hypersetup{urlcolor=headercolor}%
-        \href{https://www.makerlab.gr}{\textsc{www.makerlab.gr}}%
+        \href{$website$}{\textsc{$website$}}%
       }
     $else$
       \renewcommand{\headrulewidth}{2pt}%
       \fancyhead[C]{%
         \rule[15mm]{0pt}{5mm}%
         \color{headercolor} \small \sffamily%
-        \textsc{Πρότυπο Κέντρο Ρομποτικής \& Τεχνολογίας} \textbullet{}%
+        \textsc{$institution$} \textbullet{}%
         \textsc{$address$} \textbullet{}%
         \textsc{$city$} \textbullet{}%
         \textsc{$telephone$} \textbullet{}%
         \hypersetup{urlcolor=headercolor}%
-        \href{https://www.makerlab.gr}{\textsc{www.makerlab.gr}}%
+        \href{$website$}{\textsc{$website$}}%
       }
     $endif$
   $endif$
