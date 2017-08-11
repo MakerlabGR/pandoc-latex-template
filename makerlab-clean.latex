@@ -66,13 +66,13 @@ $endif$
   $endif$
 
 % converts LaTeX specials (quotes, dashes etc.) to Unicode
-\defaultfontfeatures{LetterSpace=2, Mapping=tex-text, Ligatures=TeX, Scale=MatchLowercase}
+\defaultfontfeatures{LetterSpace=2,Mapping=tex-text,Ligatures=TeX,Scale=MatchLowercase}
 
 % Custom ampersand
 \newcommand{\amper}{{\fontspec[Scale=.95]{$mainfont$}\selectfont\itshape\&}}
 
 $if(mainfont)$
-  \setmainfont[Ligatures={Common}, Numbers={OldStyle}]{$mainfont$}
+  \setmainfont[Ligatures={Common}]{$mainfont$}
 $endif$
 $if(sansfont)$
   \setsansfont{$sansfont$}
@@ -271,7 +271,7 @@ $endif$
 %------------------------------------TABLES------------------------------------%
 
 
-$if(forms)$
+$if(formsstyle)$
   \usepackage{tabularx}
 $endif$
 
@@ -314,11 +314,11 @@ $endif$
 
 
 \rmfamily \normalsize
-$if(showdate)$
-  $if(showrecipient)$
+$if(date)$
+  $if(recipient)$
     % \begin{FlushLeft}
-      $for(to)$
-      $to$\\
+      $for(recipient)$
+        $recipient$\\
       $endfor$
     % \end{FlushLeft}
   $endif$
@@ -329,10 +329,10 @@ $if(showdate)$
       $city$, \today
   \end{FlushRight}
 $else$
-  $if(showrecipient)$
+  $if(recipient)$
     \begin{FlushLeft}
-      $for(to)$
-      $to$\\
+      $for(recipient)$
+        $recipient$\\
       $endfor$
     \end{FlushLeft}
   $endif$
@@ -343,7 +343,7 @@ $endif$
 
 
 $if(subject)$
-  $if(showdate)$
+  $if(date)$
     \begin{FlushLeft}
       \rmfamily \Large \textsc{$subject$}
     \end{FlushLeft}
@@ -361,7 +361,7 @@ $endif$
 %-------------------------------------FORMS------------------------------------%
 
 
-$if(forms)$
+$if(formsstyle)$
   \bgroup
   \def\arraystretch{1.2}
 
@@ -415,38 +415,47 @@ $endif$
 
 
 $if(signature)$
-  $if(forms)$
-    \vspace{5ex}
-    \begin{minipage}{\textwidth}
-      \rmfamily \normalsize
-      \begin{FlushRight}
-        Ημερομηνία\\
 
-        \vspace{3ex}
+  \vspace{4ex}
+
+  $if(formsstyle)$
+    \hfill
+    \begin{minipage}{15em}
+      \rmfamily \normalsize
+      \begin{center}
+        $if(year)$
+          Ημερομηνία: .../.../$year$\\
+        $else$
+          Ημερομηνία: .../.../20...\\
+        $endif$
+
+        \vspace{2ex}
 
         Υπογραφή
-      \end{FlushRight}
+      \end{center}
     \end{minipage}
   $else$
-    \begin{minipage}{\textwidth}
-      \rmfamily \normalsize
-      \begin{FlushLeft}
-        Με εκτίμηση,\\
+    $if(letterstyle)$
+      \begin{minipage}{\textwidth}
+        \rmfamily \normalsize
+        \begin{FlushLeft}
+          Με εκτίμηση,\\
 
-        \vspace{0.9\baselineskip}
+          \vspace{0.9\baselineskip}
 
-        \IfFileExists{signature.pdf}
-        {%
-          \includegraphics[height=3\baselineskip]{signature.pdf} \par
+          \IfFileExists{signature.pdf}
+          {%
+            \includegraphics[height=3\baselineskip]{signature.pdf} \par
 
-          \vspace{-3.2mm}
+            \vspace{-3.2mm}
 
-        }
-        {%
-        }
-        $author$
-      \end{FlushLeft}
-    \end{minipage}
+          }
+          {%
+          }
+          $author$
+        \end{FlushLeft}
+      \end{minipage}
+    $endif$
   $endif$
 $endif$
 
