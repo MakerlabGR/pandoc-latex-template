@@ -79,7 +79,6 @@ $endif$
 %----------------------------------TYPOGRAPHY----------------------------------%
 
 
-\usepackage{xunicode}
 \usepackage{xltxtra}
 
 % use microtype if available
@@ -330,6 +329,10 @@ $if(verbatim-in-note)$
   \VerbatimFootnotes % allows verbatim text in footnotes
 $endif$
 
+$for(header-includes)$
+  $header-includes$
+$endfor$
+
 
 %-------------------------------TITLE AND AUTHOR-------------------------------%
 
@@ -410,35 +413,6 @@ $endif$
 % Captions
 \usepackage[font={small,it}]{caption}
 \newcommand{\imglabel}[1]{\textbf{\textit{(#1)}}}
-
-$for(header-includes)$
-  $header-includes$
-$endfor$
-
-$if(title)$
-  \title{$title$%
-         $if(thanks)$%
-           \thanks{$thanks$}%
-         $endif$}
-$endif$
-
-$if(subtitle)$
-  \providecommand{\subtitle}[1]{}
-  \subtitle{$subtitle$}
-$endif$
-
-$if(author)$
-  \author{$for(author)$%
-            $author$$sep$ \and %
-          $endfor$}
-$endif$
-
-$if(institute)$
-  \providecommand{\institute}[1]{}
-  \institute{$for(institute)$%
-               $institute$$sep$ \and %
-             $endfor$}
-$endif$
 
 
 %--------------------------------CODE LISTINGS---------------------------------%
@@ -759,7 +733,7 @@ $endif$
 %-----------------------------------TITLE PAGE---------------------------------%
 
 
-$if(titlepage)$
+$if(showtitlepage)$
   \begin{titlepage}
     \newgeometry{left=6cm}
     $if(titlepage-color)$
@@ -808,6 +782,39 @@ $if(titlepage)$
     \end{flushleft}
   \end{titlepage}
   \restoregeometry
+$endif$
+
+
+%------------------------------------TITLE-------------------------------------%
+
+
+$if(showtitle)$
+  $if(title)$
+    \title{$title$%
+           $if(thanks)$%
+             \thanks{$thanks$}%
+           $endif$}
+  $endif$
+
+  $if(subtitle)$
+    \providecommand{\subtitle}[1]{}
+    \subtitle{$subtitle$}
+  $endif$
+
+  $if(author)$
+    \author{$for(author)$%
+              $author$$sep$ \and %
+            $endfor$}
+  $endif$
+
+  $if(institute)$
+    \providecommand{\institute}[1]{}
+    \institute{$for(institute)$%
+                 $institute$$sep$ \and %
+               $endfor$}
+  $endif$
+
+  \maketitle
 $endif$
 
 

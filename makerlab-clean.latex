@@ -9,7 +9,7 @@
 \usepackage[usenames, dvipsnames, svgnames, table]{xcolor}
 
 \usepackage{geometry}
-$if(background)$
+$if(headergraphics)$
   \geometry{a4paper, left=20mm, right=20mm, bottom=25mm, top=32mm, headsep=34mm}
 $else$
   \geometry{a4paper, left=20mm, right=20mm, bottom=45mm, top=25mm, headsep=25mm}
@@ -19,7 +19,6 @@ $endif$
 %----------------------------------TYPOGRAPHY----------------------------------%
 
 
-\usepackage{xunicode}
 \usepackage{xltxtra}
 \usepackage[protrusion=true,final]{microtype}
 
@@ -391,15 +390,6 @@ $if(signature)$
     \end{FlushLeft}
   \end{minipage}
 $endif$
-
-
-\begin{tabular}{|l|c|r|p{1.7cm}|}
-  \hline
-  left & $author$ & right & a fully justified paragraph cell\\
-  \hline
-  l & c & r & p\\
-  \hline
-\end{tabular}
 
 
 %----------------------------------END DOCUMENT--------------------------------%
