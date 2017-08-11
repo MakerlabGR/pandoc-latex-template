@@ -187,6 +187,10 @@ $endif$
 %------------------------------PARAGRAPH STYLING-------------------------------%
 
 
+% Line spacing
+\usepackage{setspace}
+\setstretch{1.2}
+
 % Text alignment
 \usepackage[document]{ragged2e}
 
@@ -261,6 +265,14 @@ $if(listings)$
     stringstyle=\color{listing-string},
     identifierstyle=\color{listing-identifier}
   }
+$endif$
+
+
+%------------------------------------TABLES------------------------------------%
+
+
+$if(forms)$
+  \usepackage{tabularx}
 $endif$
 
 
@@ -346,6 +358,39 @@ $else$
 $endif$
 
 
+%-------------------------------------FORMS------------------------------------%
+
+
+$if(forms)$
+  \bgroup
+  \def\arraystretch{1.2}
+
+  \textbf{$form1type$}\\
+
+  \vspace{1ex}
+
+  \begin{tabular*}{\textwidth}{r @{\hspace{0.2em} \Large :}}
+    $for(form1)$
+      \Large \textsc{$form1$}\\
+    $endfor$
+  \end{tabular*}
+
+  \vspace{1ex}
+
+  \textbf{$form2type$}\\
+
+  \vspace{1ex}
+
+  \begin{tabular*}{\textwidth}{r @{\hspace{0.1em} \Large :}}
+    $for(form2)$
+      \Large \textsc{$form2$}\\
+    $endfor$
+  \end{tabular*}
+
+  \egroup
+$endif$
+
+
 %-------------------------------------BODY-------------------------------------%
 
 
@@ -370,25 +415,39 @@ $endif$
 
 
 $if(signature)$
-  \begin{minipage}{\textwidth}
-    \rmfamily \normalsize
-    \begin{FlushLeft}
-      Με εκτίμηση,\\
+  $if(forms)$
+    \vspace{5ex}
+    \begin{minipage}{\textwidth}
+      \rmfamily \normalsize
+      \begin{FlushRight}
+        Ημερομηνία\\
 
-      \vspace{0.9\baselineskip}
+        \vspace{3ex}
 
-      \IfFileExists{signature.pdf}
-      {%
-        \includegraphics[height=3\baselineskip]{signature.pdf} \par
+        Υπογραφή
+      \end{FlushRight}
+    \end{minipage}
+  $else$
+    \begin{minipage}{\textwidth}
+      \rmfamily \normalsize
+      \begin{FlushLeft}
+        Με εκτίμηση,\\
 
-        \vspace{-3.2mm}
+        \vspace{0.9\baselineskip}
 
-      }
-      {%
-      }
-      $author$
-    \end{FlushLeft}
-  \end{minipage}
+        \IfFileExists{signature.pdf}
+        {%
+          \includegraphics[height=3\baselineskip]{signature.pdf} \par
+
+          \vspace{-3.2mm}
+
+        }
+        {%
+        }
+        $author$
+      \end{FlushLeft}
+    \end{minipage}
+  $endif$
 $endif$
 
 
