@@ -102,7 +102,10 @@ $endif$
 % Header graphics
 $if(headergraphics)$
   \usepackage{wallpaper}
-  \CenterWallPaper{1}{background.pdf}
+  \IfFileExists{res/background.pdf}
+  {%
+    \CenterWallPaper{1}{res/background.pdf}
+  }
 $endif$
 
 % Page numbering
@@ -473,14 +476,12 @@ $if(signature)$
 
           \vspace{0.9\baselineskip}
 
-          \IfFileExists{signature.pdf}
+          \IfFileExists{res/signature.pdf}
           {%
-            \includegraphics[height=3\baselineskip]{signature.pdf} \par
+            \includegraphics[height=3\baselineskip]{res/signature.pdf} \par
 
             \vspace{-3.2mm}
 
-          }
-          {%
           }
           $author$
         \end{FlushLeft}
