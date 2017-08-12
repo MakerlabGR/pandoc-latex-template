@@ -118,15 +118,18 @@ $endif$
   \renewcommand{\headrulewidth}{0pt}%
   \renewcommand{\headrule}{{\color{\headrulecolour}\oldheadrule}}%
 
+  \def\bulletspacing{0.08em}
+
   $if(headertext)$
     $if(headergraphics)$
       \renewcommand{\headrulewidth}{0pt}%
       \fancyhead[R]{%
         \rule[15mm]{0pt}{5mm}%
-        \color{headercolor} \small \sffamily%
-        \textsc{$institution$} \textbullet{}%
-        \textsc{$address$} \textbullet{}%
-        \textsc{$city$} \textbullet{}%
+        \color{headercolor}
+        \sffamily%
+        \textsc{$institution$} \textbullet{} \hspace{\bulletspacing}%
+        \textsc{$address$}     \textbullet{} \hspace{\bulletspacing}%
+        \textsc{$city$}        \textbullet{} \hspace{\bulletspacing}%
         \textsc{$telephone$} \\%
         \vspace{1.2ex}%
         \hypersetup{urlcolor=headercolor}%
@@ -136,11 +139,12 @@ $endif$
       \renewcommand{\headrulewidth}{2pt}%
       \fancyhead[C]{%
         \rule[15mm]{0pt}{5mm}%
-        \color{headercolor} \small \sffamily%
-        \textsc{$institution$} \textbullet{}%
-        \textsc{$address$} \textbullet{}%
-        \textsc{$city$} \textbullet{}%
-        \textsc{$telephone$} \textbullet{}%
+        \color{headercolor}
+        \sffamily%
+        \textsc{$institution$} \textbullet{} \hspace{\bulletspacing}%
+        \textsc{$address$}     \textbullet{} \hspace{\bulletspacing}%
+        \textsc{$city$}        \textbullet{} \hspace{\bulletspacing}%
+        \textsc{$telephone$}   \textbullet{} \hspace{\bulletspacing}%
         \hypersetup{urlcolor=headercolor}%
         \href{$website$}{\textsc{$website$}}%
       }
@@ -272,7 +276,21 @@ $endif$
 
 
 $if(formsstyle)$
-  \usepackage{tabularx}
+  \usepackage{longtable}
+  \setlength{\LTleft}{0pt}
+
+  \makeatletter
+  \def\dontchopLT{\let\LT@entry@chop\relax}
+  \def\resumeLT{%
+  \let\zzz\stepcounter
+  \def\yyy{LT@tables}
+  \def\stepcounter##1{%
+    \def\xxx{##1}%
+    \ifx\xxx\yyy\else\zzz{##1}\fi}}
+  \makeatother
+
+  % environment for boxes
+  \usepackage{framed}
 $endif$
 
 
@@ -361,40 +379,50 @@ $endif$
 %-------------------------------------FORMS------------------------------------%
 
 
+\rmfamily \large
 $if(formsstyle)$
-  \bgroup
-  \def\arraystretch{1.2}
+  {
+    \def\arraystretch{1.05}
 
-  \textbf{$form1type$}\\
+    {\normalsize\textbf{$form1label$}}\\
 
-  \vspace{1ex}
+    \vspace{0.5ex}
 
-  \begin{tabular*}{\textwidth}{r @{\hspace{0.2em} \Large :}}
-    $for(form1)$
-      \Large \textsc{$form1$}\\
-    $endfor$
-  \end{tabular*}
+    {
+      \dontchopLT
+      \begin{longtable}{r @{\hspace{0.2em} : \hspace{0.2em}} l}
+        $for(form1)$
+          \textsc{$form1.label$} & {$form1.value$}\\
+        $endfor$
+      \end{longtable}
+    }
 
-  \vspace{1ex}
+    \vspace{-2ex}
 
-  \textbf{$form2type$}\\
+    {\normalsize\textbf{$form2label$}}\\
 
-  \vspace{1ex}
+    \vspace{0.5ex}
 
-  \begin{tabular*}{\textwidth}{r @{\hspace{0.1em} \Large :}}
-    $for(form2)$
-      \Large \textsc{$form2$}\\
-    $endfor$
-  \end{tabular*}
-
-  \egroup
+    {
+      \resumeLT
+      \begin{longtable}{r @{\hspace{0.2em} : \hspace{0.2em}} l}
+        $for(form2)$
+          \textsc{$form2.label$} & {$form2.value$}\\
+        $endfor$
+      \end{longtable}
+    }
+  }
 $endif$
 
 
 %-------------------------------------BODY-------------------------------------%
 
 
-\rmfamily \normalsize
+$if(formsstyle)$
+  \rmfamily \small
+$else$
+  \rmfamily \normalsize
+$endif$
 $if(letterstyle)$
   \begin{FlushLeft}
     $body$
@@ -421,17 +449,19 @@ $if(signature)$
   $if(formsstyle)$
     \hfill
     \begin{minipage}{15em}
-      \rmfamily \normalsize
+      \rmfamily \small
       \begin{center}
         $if(year)$
-          Ημερομηνία: .../.../$year$\\
+          $city$, \today\\
         $else$
-          Ημερομηνία: .../.../20...\\
+          $city$, \today\\
         $endif$
 
-        \vspace{2ex}
+        \vspace{1ex}
 
-        Υπογραφή
+        \fbox{%
+          \parbox[b][8ex][b]{0.9\textwidth}{\tiny \centering Υπογραφή}%
+        }
       \end{center}
     \end{minipage}
   $else$
