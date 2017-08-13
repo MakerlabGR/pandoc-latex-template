@@ -130,13 +130,13 @@ $endif$
         \rule[15mm]{0pt}{5mm}%
         \color{headercolor}
         \sffamily%
-        \textsc{$institution$} \textbullet{} \hspace{\bulletspacing}%
-        \textsc{$address$}     \textbullet{} \hspace{\bulletspacing}%
-        \textsc{$city$}        \textbullet{} \hspace{\bulletspacing}%
-        \textsc{$telephone$} \\%
+        $institution$ \textbullet{} \hspace{\bulletspacing}%
+        $address$     \textbullet{} \hspace{\bulletspacing}%
+        $city$        \textbullet{} \hspace{\bulletspacing}%
+        $telephone$ \\%
         \vspace{1.2ex}%
         \hypersetup{urlcolor=headercolor}%
-        \href{$website$}{\textsc{$website$}}%
+        \href{$website$}{$website$}%
       }
     $else$
       \renewcommand{\headrulewidth}{2pt}%
@@ -144,12 +144,12 @@ $endif$
         \rule[15mm]{0pt}{5mm}%
         \color{headercolor}
         \sffamily%
-        \textsc{$institution$} \textbullet{} \hspace{\bulletspacing}%
-        \textsc{$address$}     \textbullet{} \hspace{\bulletspacing}%
-        \textsc{$city$}        \textbullet{} \hspace{\bulletspacing}%
-        \textsc{$telephone$}   \textbullet{} \hspace{\bulletspacing}%
+        $institution$ \textbullet{} \hspace{\bulletspacing}%
+        $address$     \textbullet{} \hspace{\bulletspacing}%
+        $city$        \textbullet{} \hspace{\bulletspacing}%
+        $telephone$   \textbullet{} \hspace{\bulletspacing}%
         \hypersetup{urlcolor=headercolor}%
-        \href{$website$}{\textsc{$website$}}%
+        \href{$website$}{$website$}%
       }
     $endif$
   $endif$
