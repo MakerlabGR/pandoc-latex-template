@@ -265,9 +265,9 @@ $endif$
 % Header graphics
 $if(headergraphics)$
   \usepackage{wallpaper}
-  \IfFileExists{res/background.pdf}
+  \IfFileExists{$headergraphics$}
   {%
-    \CenterWallPaper{1}{res/background.pdf}
+    \CenterWallPaper{1}{$headergraphics$}
   }
 $endif$
 
@@ -968,25 +968,6 @@ $if(signature)$
 
   \vspace{4ex}
 
-  $if(formsstyle)$
-    \hfill
-    \begin{minipage}{15em}
-      \rmfamily \small
-      \begin{center}
-        $if(year)$
-          $city$, \today\\
-        $else$
-          $city$, \today\\
-        $endif$
-
-        \vspace{1ex}
-
-        \fbox{%
-          \parbox[b][8ex][b]{0.9\textwidth}{\tiny \centering Υπογραφή}%
-        }
-      \end{center}
-    \end{minipage}
-  $else$
     $if(letterstyle)$
       \begin{minipage}{\textwidth}
         \rmfamily \normalsize
@@ -995,9 +976,9 @@ $if(signature)$
 
           \vspace{0.9\baselineskip}
 
-          \IfFileExists{res/signature.pdf}
+          \IfFileExists{$signature$}
           {%
-            \includegraphics[height=3\baselineskip]{res/signature.pdf} \par
+            \includegraphics[height=3\baselineskip]{$signature$}\\
 
             \vspace{-3.2mm}
 
@@ -1006,7 +987,29 @@ $if(signature)$
         \end{FlushLeft}
       \end{minipage}
     $endif$
-  $endif$
+$endif$
+
+$if(formsstyle)$
+
+  \vspace{4ex}
+
+  \hfill
+  \begin{minipage}{15em}
+    \rmfamily \small
+    \begin{center}
+      $if(year)$
+        $city$, \today\\
+      $else$
+        $city$, \today\\
+      $endif$
+
+      \vspace{1ex}
+
+      \fbox{%
+        \parbox[b][8ex][b]{0.9\textwidth}{\tiny \centering Υπογραφή}%
+      }
+    \end{center}
+  \end{minipage}
 $endif$
 
 
