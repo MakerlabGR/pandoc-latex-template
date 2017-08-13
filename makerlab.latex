@@ -904,12 +904,9 @@ $endif$
 \rmfamily \large
 $if(formsstyle)$
   {
-    \def\arraystretch{1.05}
+    \def\arraystretch{1.0}
 
     {\normalsize\textbf{$form1label$}}\\
-
-    \vspace{0.5ex}
-
     {
       \dontchopLT
       \begin{longtable}{r @{\hspace{0.2em} : \hspace{0.2em}} l}
@@ -919,12 +916,9 @@ $if(formsstyle)$
       \end{longtable}
     }
 
-    \vspace{-2ex}
+    \vspace{-3ex}
 
     {\normalsize\textbf{$form2label$}}\\
-
-    \vspace{0.5ex}
-
     {
       \resumeLT
       \begin{longtable}{r @{\hspace{0.2em} : \hspace{0.2em}} l}
@@ -934,6 +928,7 @@ $if(formsstyle)$
       \end{longtable}
     }
   }
+  \vspace{-2ex}
 $endif$
 
 
