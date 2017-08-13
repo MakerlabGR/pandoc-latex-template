@@ -255,7 +255,7 @@ $endif$
 % Custom date
 $if(customdate)$
   \usepackage{advdate}
-  \SetDate[$day$/$month$/$year$]
+  \SetDate[$customdate.day$/$customdate.month$/$customdate.year$]
 $endif$
 
 
