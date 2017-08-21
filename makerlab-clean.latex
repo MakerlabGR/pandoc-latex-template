@@ -133,7 +133,7 @@ $endif$
         $address$     \textbullet{} \hspace{\bulletspacing}%
         $city$        \textbullet{} \hspace{\bulletspacing}%
         $telephone$ \\%
-        \vspace{1.2ex}%
+        \vspace{1.0ex}%
         \hypersetup{urlcolor=headercolor}%
         \href{$website$}{$website$}%
       }
