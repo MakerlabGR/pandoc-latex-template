@@ -104,7 +104,7 @@ $if(headergraphics)$
   \IfFileExists{$headergraphics$}
   {%
     \CenterWallPaper{1}{$headergraphics$}
-  }
+  }{}
 $endif$
 
 % Page numbering
@@ -457,8 +457,9 @@ $if(signature)$
 
             \vspace{-3.2mm}
 
-          }
-          $author$
+          }{}
+          %
+          {$author$}
         \end{FlushLeft}
       \end{minipage}
     $endif$
