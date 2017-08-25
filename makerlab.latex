@@ -68,7 +68,7 @@ $if(geometry)$
   \usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
 $else$
   \usepackage{geometry}
-  $if(headergraphics)$
+  $if(headergraphic)$
     \geometry{a4paper, left=20mm, right=20mm, bottom=25mm, top=32mm, headsep=34mm}
   $else$
     \geometry{a4paper, left=20mm, right=20mm, bottom=45mm, top=25mm, headsep=25mm}
@@ -263,11 +263,11 @@ $endif$
 
 
 % Header graphics
-$if(headergraphics)$
+$if(headergraphic)$
   \usepackage{wallpaper}
-  \IfFileExists{$headergraphics$}
+  \IfFileExists{$headergraphic$}
   {%
-    \CenterWallPaper{1}{$headergraphics$}
+    \CenterWallPaper{1}{$headergraphic$}
   }{}
 $endif$
 
@@ -287,7 +287,7 @@ $endif$
   \def\bulletspacing{0.08em}
 
   $if(headertext)$
-    $if(headergraphics)$
+    $if(headergraphic)$
       \renewcommand{\headrulewidth}{0pt}%
       \fancyhead[R]{%
         \rule[15mm]{0pt}{5mm}%
@@ -317,7 +317,7 @@ $endif$
     $endif$
   $endif$
 
-  $if(pagenumbering)$
+  $if(numberpages)$
     $if(fancynumbering)$
       \fancyfoot[C]{%
         \color{footercolor} \small%
@@ -959,7 +959,7 @@ $endif$
 %-----------------------------------SIGNATURE----------------------------------%
 
 
-$if(signature)$
+$if(sign)$
 
   \vspace{4ex}
 
@@ -967,15 +967,15 @@ $if(signature)$
       \begin{minipage}{\textwidth}
         \rmfamily \normalsize
         \begin{FlushLeft}
-          Με εκτίμηση,\\
+          $signaturetext$\\
 
           \vspace{0.9\baselineskip}
 
-          \IfFileExists{$signature$}
+          \IfFileExists{$signaturegraphic$}
           {%
-            \includegraphics[height=3\baselineskip]{$signature$}\\
+            \includegraphics[height=3\baselineskip]{$signaturegraphic$}\\
 
-            \vspace{-3.2mm}
+            \vspace{-4.8mm}
 
           }{}
           %
