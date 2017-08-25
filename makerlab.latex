@@ -373,12 +373,32 @@ $endfor$
 
 % TOC depth and section numbering depth
 $if(numbersections)$
-  \setcounter{secnumdepth}{3}
-  \setcounter{tocdepth}{3}
+  \setcounter{secnumdepth}{$if(secnumdepth)$%
+                             $secnumdepth$%
+                           $else$%
+                             3%
+                           $endif$}
+ \setcounter{tocdepth}{$if(secnumdepth)$%
+                             $secnumdepth$%
+                           $else$%
+                             3%
+                           $endif$}
 $else$
-  % Collapse numbering
   \setcounter{secnumdepth}{0}
   \setcounter{tocdepth}{0}
+$endif$
+
+$if(subparagraph)$
+$else$
+  % Redefines (sub)paragraphs to behave more like sections
+  \ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+  \fi
+  \ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+  \fi
 $endif$
 
 
@@ -409,14 +429,37 @@ $endif$
 
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 
+$if(links-as-notes)$
+  % Make links footnotes instead of hotlinks:
+  \DeclareRobustCommand{\href}[2]{#2\footnote{\url{#1}}}
+$endif$
+
+$if(strikeout)$
+  \usepackage[normalem]{ulem}
+  % avoid problems with \sout in headers with hyperref:
+  \pdfstringdefDisableCommands{\renewcommand{\sout}{}}
+$endif$
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}
+}
+
 
 %------------------------------------FIGURES------------------------------------%
 
 
-% set default figure placement to htbp
-\makeatletter
-\def\fps@figure{htbp}
-\makeatother
+$if(graphics)$
+  \usepackage{graphicx,grffile}
+  % Scale images if necessary, so that they will not overflow the page
+  % margins by default, and it is still possible to overwrite the defaults
+  % using explicit options in \includegraphics[width, height, ...]{}
+  \makeatletter
+  \renewcommand{\fps@figure}{htbp}
+  \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+  \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+  \makeatother
+  \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+$endif$
 
 % Captions
 \usepackage[font={small,it}]{caption}
@@ -500,6 +543,12 @@ $endif$
 
 
 $if(tables)$
+  \usepackage{longtable,booktabs}
+  % Fix footnotes in tables (requires footnote package)
+  \IfFileExists{footnote.sty}{%
+    \usepackage{footnote}\makesavenoteenv{long table}
+  }{}
+
   \renewcommand{\arraystretch}{1.4} % table spacing
   \definecolor{table-gray}{HTML}{F5F5F5}
   \rowcolors{3}{white!100!white}{table-gray!100!white!100}
@@ -555,73 +604,6 @@ $if(biblatex)$
 $endif$
 
 
-
-$if(tables)$
-  \usepackage{longtable,booktabs}
-  % Fix footnotes in tables (requires footnote package)
-  \IfFileExists{footnote.sty}{%
-    \usepackage{footnote}\makesavenoteenv{long table}
-  }{}
-$endif$
-
-$if(graphics)$
-  \usepackage{graphicx,grffile}
-  \makeatletter
-  \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-  \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-  \makeatother
-  % Scale images if necessary, so that they will not overflow the page
-  % margins by default, and it is still possible to overwrite the defaults
-  % using explicit options in \includegraphics[width, height, ...]{}
-  \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-$endif$
-
-$if(links-as-notes)$
-  % Make links footnotes instead of hotlinks:
-  \DeclareRobustCommand{\href}[2]{#2\footnote{\url{#1}}}
-$endif$
-
-$if(strikeout)$
-  \usepackage[normalem]{ulem}
-  % avoid problems with \sout in headers with hyperref:
-  \pdfstringdefDisableCommands{\renewcommand{\sout}{}}
-$endif$
-
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}
-}
-
-$if(numbersections)$
-  \setcounter{secnumdepth}{$if(secnumdepth)$%
-                             $secnumdepth$%
-                           $else$%
-                             5%
-                           $endif$}
-$else$
-  \setcounter{secnumdepth}{0}
-$endif$
-
-$if(subparagraph)$
-$else$
-  % Redefines (sub)paragraphs to behave more like sections
-  \ifx\paragraph\undefined\else
-  \let\oldparagraph\paragraph
-  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-  \fi
-  \ifx\subparagraph\undefined\else
-  \let\oldsubparagraph\subparagraph
-  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-  \fi
-$endif$
-
-
-% When using babel or polyglossia with biblatex, loading csquotes is recommended
-% to ensure that quoted texts are typeset according to the rules of your main
-% language.
-\usepackage{csquotes}
-
-
 %-----------------------------------LANGUAGE-----------------------------------%
 
 
@@ -630,6 +612,11 @@ $if(hellenic)$
     \usepackage{xgreek}
   \fi
 $else$
+  % When using babel or polyglossia with biblatex, loading csquotes is recommended
+  % to ensure that quoted texts are typeset according to the rules of your main
+  % language.
+  \usepackage{csquotes}
+
   $if(lang)$
     \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
       \usepackage[shorthands=off,$for(babel-otherlangs)$%
