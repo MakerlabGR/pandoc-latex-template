@@ -286,7 +286,7 @@ $endif$
 
   \def\bulletspacing{0.08em}
 
-  $if(headertext)$
+  $if(header)$
     $if(headergraphic)$
       \renewcommand{\headrulewidth}{0pt}%
       \fancyhead[R]{%
