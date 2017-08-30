@@ -470,8 +470,12 @@ $if(graphics)$
 $endif$
 
 % Captions
-\usepackage[font={small,it}]{caption}
-\newcommand{\imglabel}[1]{\textbf{\textit{(#1)}}}
+\usepackage{caption}
+\captionsetup{
+  font={small,it},%
+  labelformat=empty,%
+  labelsep=none%
+}
 
 
 %--------------------------------CODE LISTINGS---------------------------------%
@@ -531,8 +535,7 @@ $if(listings)$
   }
   \lstset{style=makerlab_listing_style}
 
-  \lstdefinelanguage{XML}
-  {
+  \lstdefinelanguage{XML}{
     morestring=[b]",
     moredelim=[s][\bfseries\color{listing-keyword}]{<}{\ },
     moredelim=[s][\bfseries\color{listing-keyword}]{</}{>},
