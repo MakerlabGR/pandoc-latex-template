@@ -102,15 +102,23 @@ $endif$
 \definecolor{headercolor}{HTML}{666666}
 \definecolor{footercolor}{HTML}{666666}
 
-% Listing colors
-\definecolor{listing-background}{rgb}{0.975,0.975,0.975}
+% Quotes shade colour
+\definecolor{quotes-background}{HTML}{F0F3F4}
+
+% Links colours
+\definecolor{citecolor}{HTML}{555555}
+\definecolor{linkcolor}{HTML}{555555}
+\definecolor{urlcolor}{HTML}{555555}
+
+% Listing colours
+\definecolor{listing-background}{RGB}{0.975,0.975,0.975}
 \definecolor{listing-rule}{HTML}{B3B2B3}
 \definecolor{listing-numbers}{HTML}{B3B2B3}
 \definecolor{listing-text-color}{HTML}{000000}
 \definecolor{listing-keyword}{HTML}{435489}
 \definecolor{listing-identifier}{HTML}{435489}
-\definecolor{listing-string}{HTML}{00999a}
-\definecolor{listing-comment}{HTML}{8e8e8e}
+\definecolor{listing-string}{HTML}{00999A}
+\definecolor{listing-comment}{HTML}{8E8E8E}
 \definecolor{listing-javadoc-comment}{HTML}{006CA9}
 
 % For the background color of the title page
@@ -576,10 +584,28 @@ $if(formsstyle)$
     \def\xxx{##1}%
     \ifx\xxx\yyy\else\zzz{##1}\fi}}
   \makeatother
-
-  % environment for boxes
-  \usepackage{framed}
 $endif$
+
+
+%------------------------------------QUOTES------------------------------------%
+
+
+\usepackage{framed}
+
+% Redifine quote margins
+\usepackage{etoolbox}
+\patchcmd{\quote}{\rightmargin}{\leftmargin 0.5em \rightmargin}{}{}
+
+\let\oldquote=\quote
+\let\endoldquote=\endquote
+
+% Use a rounded shape
+\usepackage[framemethod=TikZ]{mdframed}
+\renewenvironment{quote}{\vspace{4ex}\begin{mdframed}[linewidth=0,backgroundcolor=quotes-background,roundcorner=10pt]\begin{oldquote}\itshape}{\end{oldquote}\end{mdframed}\vspace{1ex}}
+
+% % Use a non-rounded shape
+% \colorlet{shadecolor}{quotes-background}
+% \renewenvironment{quote}{\begin{shaded*}\begin{oldquote}}{\end{oldquote}\end{shaded*}}
 
 
 %---------------------------------BIBLIOGRAPHY---------------------------------%
@@ -725,8 +751,11 @@ $endif$
                Blue%
              $endif$,
   $else$
-    pdfborder={0 0 0},
+    linkcolor=linkcolor,
+    citecolor=citecolor,
+    urlcolor=urlcolor,
   $endif$
+  pdfborder={0 0 0},
 }
 
 % Don't use monospace font for urls
