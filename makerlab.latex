@@ -111,7 +111,7 @@ $endif$
 \definecolor{urlcolor}{HTML}{555555}
 
 % Listing colours
-\definecolor{listing-background}{RGB}{0.975,0.975,0.975}
+\definecolor{listing-background}{HTML}{F0F3F4}
 \definecolor{listing-rule}{HTML}{B3B2B3}
 \definecolor{listing-numbers}{HTML}{B3B2B3}
 \definecolor{listing-text-color}{HTML}{000000}
