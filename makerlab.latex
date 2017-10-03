@@ -912,6 +912,7 @@ $if(subject)$
     $if(date)$
       \begin{FlushLeft}
         \rmfamily\Large\textsc{$subject$}
+      \end{FlushLeft}
     $else$
       \begin{FlushRight}
         \rmfamily\LARGE\textsc{$subject$}
