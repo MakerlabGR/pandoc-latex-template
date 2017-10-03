@@ -53,7 +53,7 @@
                  $endif$%
                $endif$%
                $if(papersize)$%
-                 $papersize$paper,%
+                 $papersize$,%
                $endif$%
                $for(classoption)$%
                  $classoption$$sep$,%
@@ -68,10 +68,14 @@ $if(geometry)$
   \usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
 $else$
   \usepackage{geometry}
-  $if(headergraphic)$
-    \geometry{a4paper, left=20mm, right=20mm, bottom=25mm, top=32mm, headsep=34mm}
+  $if(invitationstyle)$
+    \geometry{left=16mm, right=16mm, bottom=25mm, top=32mm, headsep=34mm}
   $else$
-    \geometry{a4paper, left=20mm, right=20mm, bottom=45mm, top=25mm, headsep=25mm}
+    $if(headergraphic)$
+      \geometry{left=20mm, right=20mm, bottom=25mm, top=32mm, headsep=34mm}
+    $else$
+      \geometry{left=20mm, right=20mm, bottom=45mm, top=25mm, headsep=25mm}
+    $endif$
   $endif$
 $endif$
 
@@ -902,14 +906,17 @@ $endif$
 
 
 $if(subject)$
-  $if(date)$
-    \begin{FlushLeft}
-      \rmfamily \Large \textsc{$subject$}
-    \end{FlushLeft}
+  $if(invitationstyle)$
+    \normalfont\Large\centering\MakeUppercase{\bfseries $subject$}
   $else$
-    \begin{FlushRight}
-      \rmfamily \LARGE \textsc{$subject$}
-    \end{FlushRight}
+    $if(date)$
+      \begin{FlushLeft}
+        \rmfamily\Large\textsc{$subject$}
+    $else$
+      \begin{FlushRight}
+        \rmfamily\LARGE\textsc{$subject$}
+      \end{FlushRight}
+    $endif$
   $endif$
   \vspace{2ex}
 $else$
@@ -955,9 +962,9 @@ $endif$
 
 
 $if(formsstyle)$
-  \rmfamily \small
+  \rmfamily\small
 $else$
-  \rmfamily \normalsize
+  \rmfamily\normalsize
 $endif$
 $if(letterstyle)$
   \begin{FlushLeft}
@@ -982,26 +989,24 @@ $if(sign)$
 
   \vspace{4ex}
 
-    $if(letterstyle)$
-      \begin{minipage}{\textwidth}
-        \rmfamily \normalsize
-        \begin{FlushLeft}
-          $signaturetext$\\
+  \begin{minipage}{\textwidth}
+    \rmfamily \normalsize
+    \begin{FlushLeft}
+      $signaturetext$\\
 
-          \vspace{0.9\baselineskip}
+      \vspace{0.9\baselineskip}
 
-          \IfFileExists{$signaturegraphic$}
-          {%
-            \includegraphics[height=3\baselineskip]{$signaturegraphic$}\\
+      \IfFileExists{$signaturegraphic$}
+      {%
+        \includegraphics[height=3\baselineskip]{$signaturegraphic$}\\
 
-            \vspace{-4.8mm}
+        \vspace{-4.8mm}
 
-          }{}
-          %
-          {$author$}
-        \end{FlushLeft}
-      \end{minipage}
-    $endif$
+      }{}
+      %
+      {$author$}
+    \end{FlushLeft}
+  \end{minipage}
 $endif$
 
 $if(formsstyle)$
