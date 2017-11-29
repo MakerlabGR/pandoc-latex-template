@@ -109,6 +109,9 @@ $endif$
 % Quotes shade colour
 \definecolor{quotes-background}{HTML}{F0F3F4}
 
+% Tables shade colour
+\definecolor{table-gray}{HTML}{F0F3F4}
+
 % Links colours
 \definecolor{citecolor}{HTML}{555555}
 \definecolor{linkcolor}{HTML}{555555}
@@ -565,7 +568,6 @@ $if(tables)$
   }{}
 
   \renewcommand{\arraystretch}{1.4} % table spacing
-  \definecolor{table-gray}{HTML}{F5F5F5}
   \rowcolors{3}{white!100!white}{table-gray!100!white!100}
   % Unfortunately the colored cells extend beyond the edge of the
   % table because pandoc uses @-expressions (@{}) like so:
@@ -910,6 +912,9 @@ $if(subject)$
     \normalfont\Large\centering\MakeUppercase{\bfseries $subject$}
   $else$
     $if(date)$
+      $if(recipient)$
+        \vspace{4ex}
+      $endif$
       \begin{FlushLeft}
         \rmfamily\Large\textsc{$subject$}
       \end{FlushLeft}
