@@ -71,10 +71,14 @@ $else$
   $if(invitationstyle)$
     \geometry{left=16mm, right=16mm, bottom=25mm, top=32mm, headsep=34mm}
   $else$
-    $if(headergraphic)$
-      \geometry{left=20mm, right=20mm, bottom=25mm, top=32mm, headsep=34mm}
+    $if(envelopea5style)$
+      \geometry{left=0mm, right=7mm, bottom=25mm, top=25mm, headsep=34mm}
     $else$
-      \geometry{left=20mm, right=20mm, bottom=45mm, top=25mm, headsep=25mm}
+      $if(headergraphic)$
+        \geometry{left=20mm, right=20mm, bottom=25mm, top=32mm, headsep=34mm}
+      $else$
+        \geometry{left=20mm, right=20mm, bottom=45mm, top=25mm, headsep=25mm}
+      $endif$
     $endif$
   $endif$
 $endif$
@@ -879,27 +883,31 @@ $endif$
 
 
 \rmfamily \normalsize
-$if(date)$
-  $if(recipient)$
-    % \begin{FlushLeft}
-      $for(recipient)$
-        $recipient$\\
-      $endfor$
-    % \end{FlushLeft}
-  $endif$
-  \begin{FlushRight}
 
-      \vspace{0.5ex}
-
-      $city$, \today
-  \end{FlushRight}
+$if(envelopea5style)$
 $else$
-  $if(recipient)$
-    \begin{FlushLeft}
-      $for(recipient)$
-        $recipient$\\
-      $endfor$
-    \end{FlushLeft}
+  $if(date)$
+    $if(recipient)$
+      % \begin{FlushLeft}
+        $for(recipient)$
+          $recipient$\\
+        $endfor$
+      % \end{FlushLeft}
+    $endif$
+    \begin{FlushRight}
+
+        \vspace{0.5ex}
+
+        $city$, \today
+    \end{FlushRight}
+  $else$
+    $if(recipient)$
+      \begin{FlushLeft}
+        $for(recipient)$
+          $recipient$\\
+        $endfor$
+      \end{FlushLeft}
+    $endif$
   $endif$
 $endif$
 
@@ -1034,6 +1042,32 @@ $if(formsstyle)$
       \fbox{%
         \parbox[b][8ex][b]{0.9\textwidth}{\tiny \centering Υπογραφή}%
       }
+    \end{center}
+  \end{minipage}
+$endif$
+
+
+%--------------------------------ENVELOPE STYLE--------------------------------%
+
+
+$if(envelopea5style)$
+  \hfill
+  \begin{minipage}{35em}
+    \rmfamily \large
+    \begin{center}
+
+      \vspace{28ex}
+
+      \fbox{%
+        \parbox[b][14ex][b]{0.52\textwidth}{\centering%
+          $if(recipient)$%
+            $for(recipient)$%
+              $recipient$\\%
+            $endfor$%
+          $endif$%
+          \vspace{0.8ex}}%
+      }
+
     \end{center}
   \end{minipage}
 $endif$
