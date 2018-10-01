@@ -71,13 +71,17 @@ $else$
   $if(invitationstyle)$
     \geometry{left=16mm, right=16mm, bottom=25mm, top=32mm, headsep=34mm}
   $else$
-    $if(envelopea5style)$
-      \geometry{left=0mm, right=7mm, bottom=25mm, top=25mm, headsep=34mm}
+    $if(attestationstyle)$
+      \geometry{left=16mm, right=16mm, bottom=25mm, top=32mm, headsep=34mm}
     $else$
-      $if(headergraphic)$
-        \geometry{left=20mm, right=20mm, bottom=25mm, top=32mm, headsep=34mm}
+      $if(envelopea5style)$
+        \geometry{left=0mm, right=7mm, bottom=25mm, top=25mm, headsep=34mm}
       $else$
-        \geometry{left=20mm, right=20mm, bottom=45mm, top=25mm, headsep=25mm}
+        $if(headergraphic)$
+          \geometry{left=20mm, right=20mm, bottom=25mm, top=32mm, headsep=34mm}
+        $else$
+          \geometry{left=20mm, right=20mm, bottom=45mm, top=25mm, headsep=25mm}
+        $endif$
       $endif$
     $endif$
   $endif$
@@ -432,9 +436,9 @@ $endif$
 % Text alignment
 \usepackage[document]{ragged2e}
 
-% Trim excessive whitespace before lists
-\usepackage{enumitem}
-\setlist{nolistsep}
+% % Trim excessive whitespace before lists
+% \usepackage{enumitem}
+% \setlist{nolistsep}
 
 $if(indent)$
 $else$
@@ -919,17 +923,29 @@ $if(subject)$
   $if(invitationstyle)$
     \normalfont\Large\centering\MakeUppercase{\bfseries $subject$}
   $else$
-    $if(date)$
-      $if(recipient)$
-        \vspace{4ex}
-      $endif$
-      \begin{FlushLeft}
-        \rmfamily\Large\textsc{$subject$}
-      \end{FlushLeft}
+    $if(attestationstyle)$
+
+      \vspace{8ex}
+
+      \rmfamily\Large\centering\textsc{$subject$}
+
+      \vspace{1ex}
+
     $else$
-      \begin{FlushRight}
-        \rmfamily\LARGE\textsc{$subject$}
-      \end{FlushRight}
+      $if(date)$
+        $if(recipient)$
+
+          \vspace{4ex}
+
+        $endif$
+        \begin{FlushLeft}
+          \rmfamily\Large\textsc{$subject$}
+        \end{FlushLeft}
+      $else$
+        \begin{FlushRight}
+          \rmfamily\LARGE\textsc{$subject$}
+        \end{FlushRight}
+      $endif$
     $endif$
   $endif$
   \vspace{2ex}
@@ -1016,9 +1032,68 @@ $if(sign)$
 
         \vspace{-4.8mm}
 
-      }{}
+      }{
+        \vspace{3\baselineskip}
+      }%
       %
       {$author$}
+    \end{FlushLeft}
+  \end{minipage}
+$endif$
+
+$if(doublesign)$
+%   \newcommand{\blank}[1]{\hspace*{#1}\linebreak[0]}
+
+  \vspace{4ex}
+
+  \begin{minipage}{\textwidth}
+    \rmfamily \normalsize
+    \begin{FlushLeft}
+      $signaturetext$\\
+
+      \vspace{0.9\baselineskip}
+
+      {%
+        \begin{minipage}{0.45\textwidth}
+          \centering
+          \IfFileExists{$signaturegraphic1$}
+          {%
+            \includegraphics[height=3\baselineskip]{$signaturegraphic1$}%
+          }{
+            \vspace{3.5\baselineskip}
+          }%
+
+          \vspace{-4.8mm}
+
+          $signee1$\\
+
+          \vspace{1mm}
+
+          \sffamily\large%
+          $title1$
+        \end{minipage}
+        %
+        \hfill%
+        %
+        \begin{minipage}{0.45\textwidth}
+          \centering
+          \IfFileExists{$signaturegraphic2$}
+          {%
+            \includegraphics[height=3\baselineskip]{$signaturegraphic2$}%
+          }{
+            \vspace{3.5\baselineskip}
+          }%
+
+          \vspace{-4.8mm}
+
+          $signee2$\\
+
+          \vspace{1mm}
+
+          \sffamily\large%
+          $title2$
+        \end{minipage}
+      }
     \end{FlushLeft}
   \end{minipage}
 $endif$
@@ -1026,6 +1101,29 @@ $endif$
 $if(formsstyle)$
 
   \vspace{4ex}
+
+  \hfill
+  \begin{minipage}{15em}
+    \rmfamily \small
+    \begin{center}
+      $if(year)$
+        $city$, \today\\
+      $else$
+        $city$, \today\\
+      $endif$
+
+      \vspace{1ex}
+
+      \fbox{%
+        \parbox[b][8ex][b]{0.9\textwidth}{\tiny \centering Υπογραφή}%
+      }
+    \end{center}
+  \end{minipage}
+$endif$
+
+$if(attestationstyle)$
+
+  \vspace{10ex}
 
   \hfill
   \begin{minipage}{15em}
