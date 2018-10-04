@@ -77,10 +77,14 @@ $else$
       $if(envelopea5style)$
         \geometry{left=0mm, right=7mm, bottom=25mm, top=25mm, headsep=34mm}
       $else$
-        $if(headergraphic)$
-          \geometry{left=20mm, right=20mm, bottom=25mm, top=32mm, headsep=34mm}
+        $if(agreementstyle)$
+          \geometry{left=16mm, right=16mm, bottom=25mm, top=20mm, headsep=34mm}
         $else$
-          \geometry{left=20mm, right=20mm, bottom=45mm, top=25mm, headsep=25mm}
+          $if(headergraphic)$
+            \geometry{left=20mm, right=20mm, bottom=25mm, top=32mm, headsep=34mm}
+          $else$
+            \geometry{left=20mm, right=20mm, bottom=45mm, top=25mm, headsep=25mm}
+          $endif$
         $endif$
       $endif$
     $endif$
@@ -314,7 +318,7 @@ $endif$
       \renewcommand{\headrulewidth}{0pt}%
       \fancyhead[R]{%
         \rule[15mm]{0pt}{5mm}%
-        \color{headercolor}
+        \color{headercolor}%
         \sffamily%
         $institution$ \textbullet{} \hspace{\bulletspacing}%
         $address$     \textbullet{} \hspace{\bulletspacing}%
@@ -381,17 +385,20 @@ $endfor$
 
 \makeatletter
 \renewcommand\section{\@startsection {section}{1}{\z@}%
-                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
-                                   {2.3ex \@plus.2ex}%
-                                   {\normalfont\normalsize\bfseries\centering\MakeUppercase}}
+                         {-3.5ex \@plus -1ex \@minus -.2ex}%
+                         {2.3ex \@plus.2ex}%
+                         {\normalfont\normalsize\bfseries\centering\MakeUppercase}
+                     }
 \renewcommand\subsection{\@startsection {subsection}{1}{\z@}%
-                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
-                                   {2.3ex \@plus.2ex}%
-                                   {\normalfont\normalsize\bfseries\MakeUppercase}}
+                           {-3.5ex \@plus -1ex \@minus -.2ex}%
+                           {2.3ex \@plus.2ex}%
+                           {\normalfont\normalsize\bfseries\MakeUppercase}
+                        }
 \renewcommand\subsubsection{\@startsection {subsubsection}{1}{\z@}%
-                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
-                                   {2.3ex \@plus.2ex}%
-                                   {\normalfont\small\bfseries\MakeUppercase}}
+                               {-3.5ex \@plus -1ex \@minus -.2ex}%
+                               {2.3ex \@plus.2ex}%
+                               {\normalfont\small\bfseries\MakeUppercase}
+                           }
 \makeatother
 
 % TOC depth and section numbering depth
@@ -920,6 +927,7 @@ $endif$
 
 
 $if(subject)$
+
   $if(invitationstyle)$
     \normalfont\Large\centering\MakeUppercase{\bfseries $subject$}
   $else$
@@ -932,33 +940,41 @@ $if(subject)$
       \vspace{1ex}
 
     $else$
-      $if(date)$
-        $if(recipient)$
-
-          \vspace{4ex}
-
-        $endif$
-        \begin{FlushLeft}
-          \rmfamily\Large\textsc{$subject$}
-        \end{FlushLeft}
+      $if(agreementstyle)$
+         \normalfont\large\centering\MakeUppercase{\bfseries $subject$}
       $else$
-        \begin{FlushRight}
-          \rmfamily\LARGE\textsc{$subject$}
-        \end{FlushRight}
+        $if(date)$
+          $if(recipient)$
+
+            \vspace{4ex}
+
+          $endif$
+          \begin{FlushLeft}
+            \rmfamily\Large\textsc{$subject$}
+          \end{FlushLeft}
+        $else$
+          \begin{FlushRight}
+            \rmfamily\LARGE\textsc{$subject$}
+          \end{FlushRight}
+        $endif$
       $endif$
     $endif$
   $endif$
+
   \vspace{2ex}
+
 $else$
+
   \vspace{3ex}
+
 $endif$
 
 
 %-------------------------------------FORMS------------------------------------%
 
 
-\rmfamily \large
 $if(formsstyle)$
+  \rmfamily\large
   {
     \def\arraystretch{1.0}
 
@@ -984,7 +1000,27 @@ $if(formsstyle)$
       \end{longtable}
     }
   }
+
   \vspace{-2ex}
+
+$else$
+
+  \vspace{4ex}
+
+  \rmfamily\normalsize
+  \begin{justify}
+    $cityart$ $city$ $text0a$, \today, $text0b$:
+
+    \begin{enumerate}
+      \item {\MakeUppercase{$businessart1$}} $businesstype1$ {\MakeUppercase{«$businessname1$»}} %
+            $text0c$ $city1$, $text0d$ $address1$, $text0e$ $vat1$, $vatregistrar1$, %
+            $text0f$ $signeeart1$ $signeeaccus1$, $businessart1$ $text0g$ $signeetext1$,
+      \item {\MakeUppercase{$businessart2$}} $businesstype2$ {\MakeUppercase{«$businessname2$»}} %
+            $text0c$ $city2$, $text0d$ $address2$, $text0e$ $vat2$, $vatregistrar2$, %
+            $text0f$ $signeeart2$ $signeeaccus2$, $businessart2$ $text0g$ $signeetext2$,
+    \end{enumerate}
+
+  \end{justify}
 $endif$
 
 
@@ -1032,7 +1068,7 @@ $if(sign)$
 
         \vspace{-4.8mm}
 
-      }{
+      }{%
         \vspace{3\baselineskip}
       }%
       %
@@ -1047,21 +1083,48 @@ $if(doublesign)$
   \vspace{4ex}
 
   \begin{minipage}{\textwidth}
+
     \rmfamily \normalsize
     \begin{FlushLeft}
-      $signaturetext$\\
+
+      $if(signaturetext)$
+        $signaturetext$\\
+      $else$
+
+        \vspace{1.5em}
+
+      $endif$
 
       \vspace{0.9\baselineskip}
 
       {%
         \begin{minipage}{0.45\textwidth}
           \centering
-          \IfFileExists{$signaturegraphic1$}
-          {%
-            \includegraphics[height=3\baselineskip]{$signaturegraphic1$}%
-          }{
+          $if(signaturetext1)$
+            {%
+              \bfseries $signaturetext1$\\%
+            }
+
+            \vspace{15mm}
+
+          $else$
+
+            \vspace{1.275em}
+
+          $endif$
+
+          $if(signaturegraphic1)$
+            \IfFileExists{$signaturegraphic1$}
+            {%
+              \includegraphics[height=3\baselineskip]{$signaturegraphic1$}%
+            }{
+              \vspace{3.5\baselineskip}
+            }%
+          $else$
+
             \vspace{3.5\baselineskip}
-          }%
+
+          $endif$
 
           \vspace{-4.8mm}
 
@@ -1069,20 +1132,44 @@ $if(doublesign)$
 
           \vspace{1mm}
 
-          \sffamily\large%
-          $title1$
+          $if(title1)$
+            \sffamily\large $title1$
+          $else$
+
+            \vspace{1.525em}
+
+          $endif$
         \end{minipage}
         %
         \hfill%
         %
         \begin{minipage}{0.45\textwidth}
           \centering
-          \IfFileExists{$signaturegraphic2$}
-          {%
-            \includegraphics[height=3\baselineskip]{$signaturegraphic2$}%
-          }{
+          $if(signaturetext2)$
+            {%
+              \bfseries $signaturetext2$\\%
+            }
+
+            \vspace{15mm}
+
+          $else$
+
+            \vspace{1.275em}
+
+          $endif$
+
+          $if(signaturegraphic2)$
+            \IfFileExists{$signaturegraphic2$}
+            {%
+              \includegraphics[height=3\baselineskip]{$signaturegraphic2$}%
+            }{
+              \vspace{3.5\baselineskip}
+            }%
+          $else$
+
             \vspace{3.5\baselineskip}
-          }%
+
+          $endif$
 
           \vspace{-4.8mm}
 
@@ -1090,10 +1177,16 @@ $if(doublesign)$
 
           \vspace{1mm}
 
-          \sffamily\large%
-          $title2$
+          $if(title2)$
+            \sffamily\large $title2$
+          $else$
+
+            \vspace{1.525em}
+
+          $endif$
         \end{minipage}
       }
+
     \end{FlushLeft}
   \end{minipage}
 $endif$
