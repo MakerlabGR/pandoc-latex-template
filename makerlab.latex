@@ -1004,23 +1004,25 @@ $if(formsstyle)$
   \vspace{-2ex}
 
 $else$
+  $if(agreementstyle)$
 
-  \vspace{4ex}
+    \vspace{4ex}
 
-  \rmfamily\normalsize
-  \begin{justify}
-    $cityart$ $city$ $text0a$, \today, $text0b$:
+    \rmfamily\normalsize
+    \begin{justify}
+      $cityart$ $city$ $text0a$, \today, $text0b$:
 
-    \begin{enumerate}
-      \item {\MakeUppercase{$businessart1$}} $businesstype1$ {\MakeUppercase{«$businessname1$»}} %
-            $text0c$ $city1$, $text0d$ $address1$, $text0e$ $vat1$, $vatregistrar1$, %
-            $text0f$ $signeeart1$ $signeeaccus1$, $businessart1$ $text0g$ $signeetext1$,
-      \item {\MakeUppercase{$businessart2$}} $businesstype2$ {\MakeUppercase{«$businessname2$»}} %
-            $text0c$ $city2$, $text0d$ $address2$, $text0e$ $vat2$, $vatregistrar2$, %
-            $text0f$ $signeeart2$ $signeeaccus2$, $businessart2$ $text0g$ $signeetext2$,
-    \end{enumerate}
+      \begin{enumerate}
+        \item {\MakeUppercase{$businessart1$}} $businesstype1$ {\MakeUppercase{«$businessname1$»}} %
+              $text0c$ $city1$, $text0d$ $address1$, $text0e$ $vat1$, $vatregistrar1$, %
+              $text0f$ $signeeart1$ $signeeaccus1$, $businessart1$ $text0g$ $signeetext1$,
+        \item {\MakeUppercase{$businessart2$}} $businesstype2$ {\MakeUppercase{«$businessname2$»}} %
+              $text0c$ $city2$, $text0d$ $address2$, $text0e$ $vat2$, $vatregistrar2$, %
+              $text0f$ $signeeart2$ $signeeaccus2$, $businessart2$ $text0g$ $signeetext2$,
+      \end{enumerate}
 
-  \end{justify}
+    \end{justify}
+  $endif$
 $endif$
 
 
