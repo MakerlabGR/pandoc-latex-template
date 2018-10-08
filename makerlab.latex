@@ -315,19 +315,24 @@ $endif$
 
   $if(header)$
     $if(headergraphic)$
-      \renewcommand{\headrulewidth}{0pt}%
-      \fancyhead[R]{%
-        \rule[15mm]{0pt}{5mm}%
-        \color{headercolor}%
-        \sffamily%
-        $institution$ \textbullet{} \hspace{\bulletspacing}%
-        $address$     \textbullet{} \hspace{\bulletspacing}%
-        $city$        \textbullet{} \hspace{\bulletspacing}%
-        $telephone$ \\%
-        \vspace{1.0ex}%
-        \hypersetup{urlcolor=headercolor}%
-        \href{$website$}{$website$}%
-      }
+      $if(jointletterstyle)$
+      $else$
+        \renewcommand{\headrulewidth}{0pt}%
+        \fancyhead[R]{%
+          \rule[15mm]{0pt}{5mm}%
+          \color{headercolor}%
+          \sffamily%
+          $institution$ \textbullet{} \hspace{\bulletspacing}%
+          $address$     \textbullet{} \hspace{\bulletspacing}%
+          $city$        \textbullet{} \hspace{\bulletspacing}%
+          $telephone$ \\%
+          %
+          \vspace{1.0ex}%
+          %
+          \hypersetup{urlcolor=headercolor}%
+          \href{$website$}{$website$}%
+        }
+      $endif$
     $else$
       \renewcommand{\headrulewidth}{2pt}%
       \fancyhead[C]{%
