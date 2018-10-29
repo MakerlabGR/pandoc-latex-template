@@ -1140,12 +1140,20 @@ $if(doublesign)$
           \vspace{1mm}
 
           $if(title1)$
-            \sffamily\large $title1$
+            \sffamily\large $title1$\\
+            $if(title1extra)$
+              \sffamily\large $title1extra$
+            $else$
+
+              \vspace{1.525em}
+
+            $endif$
           $else$
 
             \vspace{1.525em}
 
           $endif$
+
         \end{minipage}
         %
         \hfill%
@@ -1185,7 +1193,14 @@ $if(doublesign)$
           \vspace{1mm}
 
           $if(title2)$
-            \sffamily\large $title2$
+            \sffamily\large $title2$\\
+            $if(title2extra)$
+              \sffamily\large $title2extra$
+            $else$
+
+              \vspace{1.525em}
+
+            $endif$
           $else$
 
             \vspace{1.525em}
