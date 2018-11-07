@@ -1070,16 +1070,29 @@ $if(sign)$
       \vspace{0.9\baselineskip}
 
       \IfFileExists{$signaturegraphic$}
-      {%
+      {
         \includegraphics[height=3\baselineskip]{$signaturegraphic$}\\
 
         \vspace{-4.8mm}
 
-      }{%
+      }{
+
         \vspace{3\baselineskip}
-      }%
-      %
-      {$author$}
+
+      }
+
+      {$author$}\\
+
+      $if(authortitle)$
+
+        \vspace{1mm}
+
+        \sffamily\large $authortitle$\\
+      $else$
+
+        \vspace{1.525em}
+
+      $endif$
     \end{FlushLeft}
   \end{minipage}
 $endif$
@@ -1135,11 +1148,12 @@ $if(doublesign)$
 
           \vspace{-4.8mm}
 
-          $signee1$\\
-
-          \vspace{1mm}
+          {$signee1$}\\
 
           $if(title1)$
+
+            \vspace{1mm}
+
             \sffamily\large $title1$\\
             $if(title1extra)$
               \sffamily\large $title1extra$
@@ -1188,11 +1202,12 @@ $if(doublesign)$
 
           \vspace{-4.8mm}
 
-          $signee2$\\
-
-          \vspace{1mm}
+          {$signee2$}\\
 
           $if(title2)$
+
+            \vspace{1mm}
+
             \sffamily\large $title2$\\
             $if(title2extra)$
               \sffamily\large $title2extra$
