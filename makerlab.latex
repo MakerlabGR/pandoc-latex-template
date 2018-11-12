@@ -1088,6 +1088,14 @@ $if(sign)$
         \vspace{1mm}
 
         \sffamily\large $authortitle$\\
+
+        $if(authortitleextra)$
+              \sffamily\large $authortitleextra$
+        $else$
+
+          \vspace{1.525em}
+        $endif$
+
       $else$
 
         \vspace{1.525em}
@@ -1150,13 +1158,14 @@ $if(doublesign)$
 
           {$signee1$}\\
 
-          $if(title1)$
+          $if(signee1title)$
 
             \vspace{1mm}
 
-            \sffamily\large $title1$\\
-            $if(title1extra)$
-              \sffamily\large $title1extra$
+            \sffamily\large $signee1title$\\
+
+            $if(signee1titleextra)$
+              \sffamily\large $signee1titleextra$
             $else$
 
               \vspace{1.525em}
@@ -1204,13 +1213,14 @@ $if(doublesign)$
 
           {$signee2$}\\
 
-          $if(title2)$
+          $if(signee2title)$
 
             \vspace{1mm}
 
-            \sffamily\large $title2$\\
-            $if(title2extra)$
-              \sffamily\large $title2extra$
+            \sffamily\large $signee2title$\\
+
+            $if(signee2titleextra)$
+              \sffamily\large $signee2titleextra$
             $else$
 
               \vspace{1.525em}
