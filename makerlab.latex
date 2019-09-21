@@ -1090,7 +1090,11 @@ $if(sign)$
         \sffamily\large $authortitle$\\
 
         $if(authortitleextra)$
-              \sffamily\large $authortitleextra$
+          \sffamily\large $authortitleextra$
+          $if(authortitleextra2)$
+            \\
+            \sffamily\large $authortitleextra2$
+          $endif$
         $else$
 
           \vspace{1.525em}
